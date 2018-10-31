@@ -6,30 +6,63 @@
 
 <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this User?</h3>
+<h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>UserProfile</h4>
     <hr />
     <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
         <dd>
             @Html.DisplayFor(model => model.UserId)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.UserName)
         </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Department)
         </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Department)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Branch)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Branch)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Role)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Role)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
     </dl>
-    
-    <form asp-action="Delete">
-        <input name="DeleteItem" type="submit" value="DeleteItem" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
 </div>

@@ -34,16 +34,18 @@ namespace PDJaya.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            
+            List<UserProfile> UserProfile = new List<UserProfile>();
             HttpClient client = await _api.InitialAsync();
             HttpResponseMessage res = await client.GetAsync("/api/UserProfiles/" + id);
             var result = await res.Content.ReadAsStringAsync();
-            UserProfile[] userProfiles= JsonConvert.DeserializeObject<UserProfile[]>(result);            
-            return View(userProfiles);
+            var o = JObject.Parse(result);
+            var data = JsonConvert.DeserializeObject<UserProfile>(o.Root.ToString());
+            return View(data);
         }
 
-        [HttpPost, ActionName("DeleteItem")]
-        public async Task<ActionResult> DeleteAsync(int? id)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete(int? id)
         {
             HttpClient client = await _api.InitialAsync();
             HttpResponseMessage res = await client.DeleteAsync("/api/UserProfiles/" + id);
