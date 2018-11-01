@@ -9,6 +9,7 @@ using System.Net.Http;
 using IdentityModel.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Text;
 
 namespace PDJaya.WebApp.Controllers
 {
@@ -31,6 +32,27 @@ namespace PDJaya.WebApp.Controllers
             }
             return View(UserProfile); //menampilkan data
         }
+
+        public IActionResult CreateUserProfile()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind] UserProfile dtForm)
+        {
+            if (ModelState.IsValid)
+            {
+                StringContent content = new StringContent(JsonConvert.SerializeObject(dtForm), Encoding.UTF8, "application/json");
+                HttpClient client = await _api.InitialAsync();
+                var result = await client.PostAsync("/api/UserProfiles", content);
+                string resultContent = await result.Content.ReadAsStringAsync();
+                Console.WriteLine(resultContent);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {

@@ -32,3 +32,4 @@ C:\Users\ASUS\source\repos\PDJaya.WebApp\PDJaya.WebApp\obj\Debug\netcoreapp2.1\P
 C:\Users\ASUS\source\repos\PDJaya.WebApp\PDJaya.WebApp\obj\Debug\netcoreapp2.1\PDJaya.WebApp.csproj.CopyComplete
 C:\Users\ASUS\source\repos\PDJaya.WebApp\PDJaya.WebApp\obj\Debug\netcoreapp2.1\Razor\Views\UserProfile\Index.g.cshtml.cs
 C:\Users\ASUS\source\repos\PDJaya.WebApp\PDJaya.WebApp\obj\Debug\netcoreapp2.1\Razor\Views\UserProfile\Delete.g.cshtml.cs
+C:\Users\ASUS\source\repos\PDJaya.WebApp\PDJaya.WebApp\obj\Debug\netcoreapp2.1\Razor\Views\UserProfile\CreateUserProfile.g.cshtml.cs
