@@ -1,0 +1,79 @@
+﻿@model PDJaya.WebApp.Models.Bills
+
+@{
+    ViewData["Title"] = "CreateBills";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateBills</title>
+</head>
+<body>
+
+    <h4>Bills</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BillID" class="control-label"></label>
+                    <input asp-for="BillID" class="form-control" />
+                    <span asp-validation-for="BillID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MarketNo" class="control-label"></label>
+                    <input asp-for="MarketNo" class="form-control" />
+                    <span asp-validation-for="MarketNo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StoreNo" class="control-label"></label>
+                    <input asp-for="StoreNo" class="form-control" />
+                    <span asp-validation-for="StoreNo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TransactionCode" class="control-label"></label>
+                    <input asp-for="TransactionCode" class="form-control" />
+                    <span asp-validation-for="TransactionCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Amount" class="control-label"></label>
+                    <input asp-for="Amount" class="form-control" />
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CreatedDate" class="control-label"></label>
+                    <input asp-for="CreatedDate" class="form-control" />
+                    <span asp-validation-for="CreatedDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Month" class="control-label"></label>
+                    <input asp-for="Month" class="form-control" />
+                    <span asp-validation-for="Month" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Year" class="control-label"></label>
+                    <input asp-for="Year" class="form-control" />
+                    <span asp-validation-for="Year" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="BillsView">Back to List</a>
+    </div>
+
+</body>
+</html>

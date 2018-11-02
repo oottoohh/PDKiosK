@@ -1,0 +1,92 @@
+﻿@model IEnumerable<PDJaya.WebApp.Models.Bills>
+
+@{
+    ViewData["Title"] = "BillsView";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BillsView</title>
+</head>
+<body>
+    <h2>Bills</h2>
+    <p>
+        <a asp-action="CreateBills">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MarketNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StoreNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TransactionCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Month)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Year)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BillID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MarketNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StoreNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Month)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Year)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
