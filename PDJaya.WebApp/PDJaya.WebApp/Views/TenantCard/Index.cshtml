@@ -1,0 +1,70 @@
+﻿@model IEnumerable<PDJaya.WebApp.Models.TenantCard>
+
+@{
+    ViewData["Title"] = "View";
+}
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="CreateTenantCard">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CardID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StoreNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CardNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CardType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CardID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StoreNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CardNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CardType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

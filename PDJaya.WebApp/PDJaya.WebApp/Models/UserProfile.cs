@@ -12,12 +12,6 @@ namespace PDJaya.WebApp.Models
     using System;
     using System.Collections.Generic;
     using Newtonsoft.Json.Linq;
-    public class ResultContainer<T>
-    {
-        public bool Success { get; set; }
-        public string Message { get; set; }
-        public T Result { get; set; }
-    }
     public partial class UserProfile
     {
         public string CreatedBy { get; set; }

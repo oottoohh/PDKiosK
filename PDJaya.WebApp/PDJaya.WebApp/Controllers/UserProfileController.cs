@@ -75,5 +75,29 @@ namespace PDJaya.WebApp.Controllers
             Console.WriteLine(resultContent);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            List<UserProfile> UserProfile = new List<UserProfile>();
+            HttpClient client = await _api.InitialAsync();
+            HttpResponseMessage res = await client.GetAsync("/api/UserProfiles/" + id);
+            var result = await res.Content.ReadAsStringAsync();
+            var o = JObject.Parse(result);
+            var data = JsonConvert.DeserializeObject<UserProfile>(o.Root.ToString());
+            return View(data);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(int? id, [Bind]UserProfile dtform)
+        {
+            HttpClient client = await _api.InitialAsync();
+            StringContent content = new StringContent(JsonConvert.SerializeObject(dtform), Encoding.UTF8, "application/json");
+            HttpResponseMessage res = await client.PutAsync("/api/UserProfiles/" + id, content);
+            string resultContent = await res.Content.ReadAsStringAsync();
+            Console.WriteLine(resultContent);
+            return RedirectToAction("Index");
+        }
     }
 }
