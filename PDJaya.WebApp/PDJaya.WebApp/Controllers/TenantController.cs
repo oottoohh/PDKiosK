@@ -10,13 +10,17 @@ using IdentityModel.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
 
 namespace PDJaya.WebApp.Controllers
 {
     public class TenantController : Controller
     {
         HelperClientHttp _api = new HelperClientHttp();
-        public async Task<IActionResult> TenantView()
+
+        [Authorize]
+        public async Task<IActionResult> Index()
         {
             List<Tenant> Tenant = new List<Tenant>();
             HttpClient client = await _api.InitialAsync(); 
@@ -48,7 +52,7 @@ namespace PDJaya.WebApp.Controllers
                 string resultContent = await result.Content.ReadAsStringAsync();
                 Console.WriteLine(resultContent);
             }
-            return RedirectToAction(nameof(TenantView));
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -75,7 +79,7 @@ namespace PDJaya.WebApp.Controllers
                 string resultContent = await result.Content.ReadAsStringAsync();
                 Console.WriteLine(resultContent);
             }
-            return RedirectToAction(nameof(TenantView));
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -98,7 +102,13 @@ namespace PDJaya.WebApp.Controllers
             HttpResponseMessage res = await client.DeleteAsync("/api/Tenants/" + id);
             string resultContent = await res.Content.ReadAsStringAsync();
             Console.WriteLine(resultContent);
-            return RedirectToAction("TenantView");
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task Logout()
+        {
+            await HttpContext.SignOutAsync("Cookies");
+            await HttpContext.SignOutAsync("oidc");
         }
 
     }

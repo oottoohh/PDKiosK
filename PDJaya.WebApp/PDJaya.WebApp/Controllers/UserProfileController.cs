@@ -10,12 +10,16 @@ using IdentityModel.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
 
 namespace PDJaya.WebApp.Controllers
 {
     public class UserProfileController : Controller
     {
         HelperClientHttp _api = new HelperClientHttp(); //Check di Helper fungsi
+
+        
         public async Task<IActionResult> Index()
         {
             List<UserProfile> UserProfile = new List<UserProfile>();
@@ -98,6 +102,11 @@ namespace PDJaya.WebApp.Controllers
             string resultContent = await res.Content.ReadAsStringAsync();
             Console.WriteLine(resultContent);
             return RedirectToAction("Index");
+        }
+        public async Task Logout()
+        {
+            await HttpContext.SignOutAsync("Cookies");
+            await HttpContext.SignOutAsync("oidc");
         }
     }
 }

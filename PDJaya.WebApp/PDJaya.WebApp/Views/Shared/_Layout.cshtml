@@ -38,6 +38,11 @@
                     <li><a asp-area="" asp-controller="Bills" asp-action="BillsView">Bills</a></li>
                     <li><a asp-area="" asp-controller="TenantCard" asp-action="Index">TenantCard</a></li>
                     <li><a asp-area="" asp-controller="Tenant" asp-action="TenantView">Tenant</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Secure">Secure</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-area="" asp-controller="Home" asp-action="Logout">Logout</a></li>
+                    }
                 </ul>
             </div>
         </div>

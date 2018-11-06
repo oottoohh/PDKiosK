@@ -10,13 +10,17 @@ using IdentityModel.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PDJaya.WebApp.Controllers
 {
     public class BillsController : Controller
     {
         HelperClientHttp _api = new HelperClientHttp();
-        public async Task<IActionResult> BillsView()
+
+        [Authorize]
+        public async Task<IActionResult> Index()
         {
             List<Bills> Bills = new List<Bills>();
             HttpClient client = await _api.InitialAsync(); //dari Global Variable
@@ -50,7 +54,7 @@ namespace PDJaya.WebApp.Controllers
                 string resultContent = await result.Content.ReadAsStringAsync();
                 Console.WriteLine(resultContent);
             }
-            return RedirectToAction(nameof(BillsView));
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -77,7 +81,7 @@ namespace PDJaya.WebApp.Controllers
                 string resultContent = await result.Content.ReadAsStringAsync();
                 Console.WriteLine(resultContent);
             }
-            return RedirectToAction(nameof(BillsView));
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -100,7 +104,12 @@ namespace PDJaya.WebApp.Controllers
             HttpResponseMessage res = await client.DeleteAsync("/api/Bills/" + id);
             string resultContent = await res.Content.ReadAsStringAsync();
             Console.WriteLine(resultContent);
-            return RedirectToAction("BillsView");
+            return RedirectToAction("Index");
+        }
+        public async Task Logout()
+        {
+            await HttpContext.SignOutAsync("Cookies");
+            await HttpContext.SignOutAsync("oidc");
         }
     }
 }

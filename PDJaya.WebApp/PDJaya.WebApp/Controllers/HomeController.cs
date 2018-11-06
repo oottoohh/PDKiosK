@@ -1,54 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using PDJaya.WebApp.Models;
-using PDJaya.WebApp.Helper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
 using System.Net.Http;
-using IdentityModel.Client;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using IdentityModel.Client;
 
-namespace PDJaya.WebApp.Controllers
+namespace MvcClient.Controllers
 {
     public class HomeController : Controller
     {
-        
-
+        [Authorize]
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
+        [Authorize]
+        public IActionResult Secure()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Secure page.";
 
             return View();
         }
 
-        public IActionResult Contact()
+        public async Task Logout()
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            await HttpContext.SignOutAsync("Cookies");
+            await HttpContext.SignOutAsync("oidc");
         }
 
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        
-        
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
+        }
+
+        public async Task<IActionResult> CallApiUsingClientCredentials()
+        {
+            var tokenClient = new TokenClient("https://pdjayaauthapi.azurewebsites.net/connect/token", "webapp2", "web123");
+            var tokenResponse = await tokenClient.RequestClientCredentialsAsync("masterdataapi");
+
+            var client = new HttpClient();
+            client.SetBearerToken(tokenResponse.AccessToken);
+            var content = await client.GetStringAsync("https://pdjayaauthapi.azurewebsites.net/identity");
+
+            ViewBag.Json = JArray.Parse(content).ToString();
+            return View("Json");
+        }
+
+        public async Task<IActionResult> CallApiUsingUserAccessToken()
+        {
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            var client = new HttpClient();
+            client.SetBearerToken(accessToken);
+            var content = await client.GetStringAsync("https://pdjayaauthapi.azurewebsites.net/identity");
+
+            ViewBag.Json = JArray.Parse(content).ToString();
+            return View("Json");
         }
     }
 }

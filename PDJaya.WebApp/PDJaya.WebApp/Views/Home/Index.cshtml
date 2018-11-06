@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+@using Microsoft.AspNetCore.Authentication;
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -90,5 +90,21 @@
             <li><a href="https://go.microsoft.com/fwlink/?LinkID=517853">Run tools such as EF migrations and more</a></li>
             <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
         </ul>
+    </div>
+    <div class="col-md-3">
+        <h2>Run &amp; Claim</h2>
+        <dl>
+            @foreach (var claim in User.Claims)
+            {
+                <dt>@claim.Type</dt>
+                <dd>@claim.Value</dd>
+
+            }
+            <dt>access token</dt>
+            <dd>@await ViewContext.HttpContext.GetTokenAsync("access_token")</dd>
+
+            <dt>refresh token</dt>
+            <dd>@await ViewContext.HttpContext.GetTokenAsync("refresh_token")</dd>
+        </dl>
     </div>
 </div>
